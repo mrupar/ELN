@@ -1,0 +1,49 @@
+/* templates/css/index.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #006394;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+.container {
+    padding: 2rem;
+}
+.toc {
+    list-style: none;
+    margin: 0;
+    padding: 1rem;
+    width: 200px;
+    background-color: #1b93cc;
+    color: white;
+}
+.toc li {
+    margin: 1rem 0;
+}
+.toc a {
+    text-decoration: none;
+    color: #006394;
+    font-size: 1.2rem;
+}
+.toc a:hover {
+    text-decoration: underline;
+}
+h2 {
+    margin-top: 2rem;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+ul li {
+    background: #e2e2e2;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
