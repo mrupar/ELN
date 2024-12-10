@@ -1,25 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Home Page{% endblock %}
+{% block title %}FELN{% endblock %}
 
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
     <header>
         <h1>Welcome to FAMNIT Electronic Laboratory Notebook</h1>
     </header>
-    <div class="container">
-        <ol class="toc" role="list">
-            <li>
-              <a href="/admin/" class="button">
-                Admin Site
-              </a>
-            </li>
-            <li>
-              <a href="/samples/" class="button">
-                Samples
-              </a>
-            </li>
-        </ol>
-    </div>
 {% endblock %}

@@ -1,7 +1,9 @@
 .d-flex .nav-pills .nav-link:hover {
-    background-color: #343a40 !important; 
+    background-color: #41484e !important; 
 }
 .vl {
     border-left: 2px solid #343a40;
 }
-
+.bg-gray {
+    background-color: #343a40 !important;
+}
