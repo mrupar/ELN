@@ -1,29 +1,25 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
     <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
-</head>
-<body>
     <header>
         <h1>Welcome to FAMNIT Electronic Laboratory Notebook</h1>
     </header>
     <div class="container">
         <ol class="toc" role="list">
             <li>
-              <a href="/admin/">
-                <span class="title">Admin Site</span>
+              <a href="/admin/" class="button">
+                Admin Site
               </a>
             </li>
             <li>
-              <a href="/samples/">
-                <span class="title">Samples</span>
+              <a href="/samples/" class="button">
+                Samples
               </a>
             </li>
         </ol>
     </div>
-</body>
-</html>
+{% endblock %}
