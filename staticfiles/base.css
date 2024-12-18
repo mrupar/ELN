@@ -1,27 +1,9 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    margin: 0;
-    padding: 0;
-}
-header {
-    background-color: #006394;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-}
-/* Target only nav items inside the sidebar */
 .d-flex .nav-pills .nav-link:hover {
-    color: #FFD700 !important;
-    background-color: #343a40 !important;
+    background-color: #41484e !important; 
 }
-.hover-text-warning:hover {
-    color: #FFD700 !important;
-    background-color: #343a40 !important;
+.vl {
+    border-left: 10px solid gray;
 }
-/* base.css */
-.d-flex .nav-pills .nav-link:hover {
-    color: #FFD700 !important;  /* Change text color on hover */
-    background-color: #343a40 !important;  /* Change background on hover */
+.bg-gray {
+    background-color: #343a40 !important;
 }
