@@ -2,8 +2,14 @@
     background-color: #41484e !important; 
 }
 .vl {
-    border-left: 10px solid gray;
+    border-left: 2px solid #343a40;
 }
 .bg-gray {
     background-color: #343a40 !important;
+}
+.header-container {
+    background-color: #006394;
+    color: white;
+    padding: 1rem;
+    text-align: center; 
 }

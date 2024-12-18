@@ -19,17 +19,12 @@
         <div class="container-fluid">
             <a class="navbar-brand ms-3" href="/">FAMNIT ELN</a>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/samples">Samples</a>
-                    </li>
-                </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="#">{% bs_icon 'person' %} Sign Up</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">{% bs_icon 'box-arrow-in-right' %} Login</a>
+                        <a class="nav-link" href="/users/login">{% bs_icon 'box-arrow-in-right' %} Login</a>
                     </li>
                     <li class="nav-item vl">
                         <a class="nav-link text-decoration-underline" href="/admin"><small>Admin Site</small></a>
@@ -71,6 +66,13 @@
 
         <!-- Main Content -->
         <main class="flex-grow-1">
+            <div class="header-container container-fluid text-center">
+                <header>
+                    {% block header %}
+                    {% endblock %}
+                </header>
+            </div>
+            
             {% block content %}
             {% endblock %}
         </main>
