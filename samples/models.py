@@ -5,11 +5,11 @@ class Project(models.Model):
     name = models.CharField(max_length=100, verbose_name="Project Name")
     description = models.TextField(blank=True, null=True, verbose_name="Project Description")
     created_by = models.ForeignKey(
-        'auth.User', related_name='projects', on_delete=models.CASCADE, verbose_name="Creator"
+        'users.CustomUser', related_name='projects', on_delete=models.CASCADE, verbose_name="Creator"
     )
     date_created = models.DateTimeField(auto_now_add=True)
     modified_by = models.ForeignKey(
-        'auth.User', related_name='modified_projects', on_delete=models.SET_NULL, null=True, blank=True
+        'users.CustomUser', related_name='modified_projects', on_delete=models.SET_NULL, null=True, blank=True
     )
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -25,7 +25,7 @@ class SampleProvider(models.Model):
     contact_email = models.EmailField(blank=True, null=True, verbose_name="Contact Email")
     phone_number = models.CharField(max_length=20, blank=True, null=True, verbose_name="Phone Number")
     provided_by = models.ForeignKey(
-        'auth.User', related_name='sample_providers', on_delete=models.CASCADE, verbose_name="Added By"
+        'users.CustomUser', related_name='sample_providers', on_delete=models.CASCADE, verbose_name="Added By"
     )
     date_created = models.DateTimeField(auto_now_add=True)
 
@@ -41,7 +41,7 @@ class Species(models.Model):
     common_name = models.CharField(max_length=100, blank=True, null=True, verbose_name="Common Name")
     subspecies = models.CharField(max_length=100, blank=True, null=True, verbose_name="Subspecies")
     added_by = models.ForeignKey(
-        'auth.User', related_name='species', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Added By"
+        'users.CustomUser', related_name='species', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Added By"
     )
     date_created = models.DateTimeField(auto_now_add=True)
 
@@ -58,7 +58,7 @@ class Sample(models.Model):
         Project, related_name='samples', on_delete=models.CASCADE, verbose_name="Project"
     )
     created_by = models.ForeignKey(
-        'auth.User', related_name='samples', on_delete=models.CASCADE, verbose_name="Created By"
+        'users.CustomUser', related_name='samples', on_delete=models.CASCADE, verbose_name="Created By"
     )
     uid = models.CharField(max_length=10, unique=True, verbose_name="Unique Identifier")
     name = models.CharField(max_length=100, verbose_name="Sample Name")
@@ -70,7 +70,7 @@ class Sample(models.Model):
     )
     collection_date = models.DateField(blank=True, null=True, verbose_name="Collection Date")
     modified_by = models.ForeignKey(
-        'auth.User', related_name='modified_samples', on_delete=models.SET_NULL, null=True, blank=True
+        'users.CustomUser', related_name='modified_samples', on_delete=models.SET_NULL, null=True, blank=True
     )
     modified_at = models.DateTimeField(auto_now=True)
 

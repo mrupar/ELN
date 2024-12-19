@@ -81,6 +81,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'FAMNIT_ELN.wsgi.application'
 
+AUTH_USER_MODEL = 'users.CustomUser'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

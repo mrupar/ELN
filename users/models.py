@@ -29,15 +29,12 @@ class CustomUser(AbstractBaseUser):
 
     objects = CustomUserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
-
-    def __str__(self):
-        return self.username
+    USERNAME_FIELD = 'username'
     
     def save(self, *args, **kwargs):
-        username = self.last_name[0:3] + self.first_name[0:1]
-        if CustomUser.objects.filter(username__startswith=username).exists():
-            username = username + str(CustomUser.objects.count())
-        self.username = username
+        if not self.username:
+            username = self.last_name + self.first_name[0:2]
+            if CustomUser.objects.filter(username__startswith=username).exists():
+                username = username + str(CustomUser.objects.count())
+            self.username = username.lower()
         super(CustomUser, self).save(*args, **kwargs)

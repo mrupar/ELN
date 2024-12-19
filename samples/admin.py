@@ -37,4 +37,4 @@ class SampleAdmin(admin.ModelAdmin):
     readonly_fields = ('date_created', 'modified_at', 'modified_by')
 
     # Inline editing of related models
-    autocomplete_fields = ('species', 'sample_provider', 'project', 'created_by')
+    autocomplete_fields = ('species', 'sample_provider', 'project')

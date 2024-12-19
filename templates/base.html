@@ -20,6 +20,11 @@
             <a class="navbar-brand ms-3" href="/">FAMNIT ELN</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    {% if user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add_user' %}">{% bs_icon 'box' %} Add User</a>
+                        </li>
+                    {% endif %}
                     {% if user.is_authenticated %}
                         <!-- Display if user is logged in -->
                         <li class="nav-item">
@@ -30,9 +35,6 @@
                         </li>
                     {% else %}
                         <!-- Display if user is not logged in -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'signup' %}">{% bs_icon 'person' %} Sign Up</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login' %}">{% bs_icon 'box-arrow-in-right' %} Login</a>
                         </li>
@@ -84,6 +86,14 @@
                     {% endblock %}
                 </header>
             </div>
+            <!-- Display Messages -->
+            {% if messages %}
+                <div class="alert alert-info">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
             
             {% block content %}
             {% endblock %}
