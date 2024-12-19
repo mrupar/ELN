@@ -20,12 +20,23 @@
             <a class="navbar-brand ms-3" href="/">FAMNIT ELN</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/signup">{% bs_icon 'person' %} Sign Up</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/login">{% bs_icon 'box-arrow-in-right' %} Login</a>
-                    </li>
+                    {% if user.is_authenticated %}
+                        <!-- Display if user is logged in -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' %}">{% bs_icon 'person' %} {{ user.username }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">{% bs_icon 'box-arrow-right' %} Logout</a>
+                        </li>
+                    {% else %}
+                        <!-- Display if user is not logged in -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'signup' %}">{% bs_icon 'person' %} Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">{% bs_icon 'box-arrow-in-right' %} Login</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item vl">
                         <a class="nav-link text-decoration-underline" href="/admin"><small>Admin Site</small></a>
                     </li>
@@ -33,6 +44,7 @@
             </div>
         </div>
     </nav>
+    
 
     <!-- Main Content Area -->
     <div class="d-flex flex-grow-1">
