@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 
 class CustomUserManager(BaseUserManager):
@@ -18,23 +18,38 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class CustomUser(AbstractBaseUser):
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
 
     objects = CustomUserManager()
 
-    USERNAME_FIELD = 'username'
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name'] 
     
     def save(self, *args, **kwargs):
         if not self.username:
             username = self.last_name + self.first_name[0:2]
-            if CustomUser.objects.filter(username__startswith=username).exists():
-                username = username + str(CustomUser.objects.count())
-            self.username = username.lower()
+            users = CustomUser.objects.filter(username__startswith=username)
+            counter = 1
+            username_n = username.lower() + str(counter)
+            for user in users:
+                if user.username == username_n:
+                    counter += 1
+                    username_n = username + str(counter)
+            self.username = username_n
         super(CustomUser, self).save(*args, **kwargs)
+
+    def has_perm(self, perm, obj=None):
+        """Does the user have a specific permission?"""
+        return True
+
+    def has_module_perms(self, app_label):
+        """Does the user have permissions to view the app `app_label`?"""
+        return True

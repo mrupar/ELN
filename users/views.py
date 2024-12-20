@@ -11,8 +11,10 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
-            user = authenticate(request, username=username, password=password)  # Authenticate the user
-            if user is not None:
+
+            user = CustomUser.objects.get(username=username)
+
+            if user.check_password(password):
                 login(request, user)  # Log the user in
                 return redirect("/")  # Redirect to the home page
             else:
