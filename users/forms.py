@@ -23,7 +23,7 @@ class LoginForm(forms.Form):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = User
-        exclude = ["date_joined", "last_login", "is_active", "is_staff", "password"]
+        exclude = ["date_joined", "last_login", "is_active", "is_superuser", "is_staff", "password", "groups", "user_permissions"]
         widgets = {
             "email": forms.EmailInput(attrs={"class": "form-control", "placeholder": "Enter your email"}),
             "first_name": forms.TextInput(attrs={"class": "form-control", "placeholder": "Enter your first name"}),

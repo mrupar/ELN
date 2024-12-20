@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block title %}FELN{% endblock %}
@@ -6,7 +7,7 @@
     <h1 class="display-4">Welcome to FAMNIT Electronic Laboratory Notebook</h1>
 {% endblock %}
 {% block content %}
-
+    {% if user.is_authenticated %}
     <div class="container my-4">
         <div class="row g-4 justify-content-between">
             <!-- Card 1 -->
@@ -46,7 +47,23 @@
             </div>
     
             <!-- Additional cards can go here -->
-            
+
+        {% else %}
+        <div class="body-container">
+            <h2>Please Log In to continue</h2>
+        </div>
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <form method="post">
+                        <p>If you don't have the account yet contact app admin.</p>
+                        {% csrf_token %}
+                        {% crispy form %}
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
     
     

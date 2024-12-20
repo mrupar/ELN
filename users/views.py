@@ -1,28 +1,9 @@
 from django.contrib import messages
-from django.contrib.auth import logout, authenticate, login, update_session_auth_hash
+from django.contrib.auth import logout, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from .forms import LoginForm, ProfileForm, AddUserForm
+from .forms import ProfileForm, AddUserForm
 from .models import CustomUser
-
-def login_view(request):
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password"]
-
-            user = CustomUser.objects.get(username=username)
-
-            if user.check_password(password):
-                login(request, user)  # Log the user in
-                return redirect("/")  # Redirect to the home page
-            else:
-                form.add_error(None, "Invalid username or password.")  # Add an error to the form
-    else:
-        form = LoginForm()
-    
-    return render(request, "users/login.html", {"form": form})
 
 @login_required
 def logout_view(request):
