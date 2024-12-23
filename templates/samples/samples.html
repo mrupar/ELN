@@ -7,7 +7,8 @@
     <h1>Samples</h1>
 {% endblock %}
 
-{% block content %}
+{% block content %}        
+    <a href="{% url 'add_sample' %}" class="btn btn-primary mx-2 my-2">Add Sample</a>
     <div class="mx-2 my-2">
         <div class="table-responsive">
             {% render_table table%}

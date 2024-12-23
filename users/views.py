@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import logout, login, update_session_auth_hash
+from django.contrib.auth import logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import ProfileForm, AddUserForm
@@ -19,7 +19,6 @@ def profile_view(request):
     if request.method == "POST":
         form = ProfileForm(request.POST, instance=user)
         if form.is_valid():
-            print("Form is valid.")
             form.save()
             return redirect("/")
 
@@ -31,13 +30,11 @@ def profile_view(request):
 
             # Check if the current password is correct
             if not user.check_password(current_password):
-                print("Current password is incorrect.")
                 messages.error(request, "Current password is incorrect.")
                 return redirect("profile")
 
             # Check if the new password and confirm password match
             if new_password != confirm_password:
-                print("New passwords do not match.")
                 messages.error(request, "New passwords do not match.")
                 return redirect("profile")
 

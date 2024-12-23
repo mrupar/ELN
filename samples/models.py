@@ -48,6 +48,14 @@ class Species(models.Model):
     def __str__(self):
         return self.scientific_name
 
+class Storaging(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Location Name")
+    short_name = models.CharField(max_length=10, verbose_name="Short Name", unique=True)
+    type = models.CharField(max_length=100, verbose_name="Type")
+
+    def __str__(self):
+        return self.name
+
 
 class Sample(models.Model):
     species = models.ForeignKey(Species, related_name='samples', on_delete=models.CASCADE, verbose_name="Species")
@@ -60,14 +68,15 @@ class Sample(models.Model):
     created_by = models.ForeignKey(
         'users.CustomUser', related_name='samples', on_delete=models.CASCADE, verbose_name="Created By"
     )
+    storaging = models.ForeignKey(
+        Storaging, related_name='samples', on_delete=models.CASCADE, verbose_name="Storage Location"
+    )
     uid = models.CharField(max_length=10, unique=True, verbose_name="Unique Identifier")
     name = models.CharField(max_length=100, verbose_name="Sample Name")
     description = models.TextField(blank=True, null=True, verbose_name="Sample Description")
     date_created = models.DateTimeField(auto_now_add=True)
     number_of_samples = models.PositiveIntegerField(default=1, verbose_name="Number of Subsamples")
-    storage_location = models.CharField(
-        max_length=200, blank=True, null=True, verbose_name="Storage Location"
-    )
+    
     collection_date = models.DateField(blank=True, null=True, verbose_name="Collection Date")
     modified_by = models.ForeignKey(
         'users.CustomUser', related_name='modified_samples', on_delete=models.SET_NULL, null=True, blank=True
