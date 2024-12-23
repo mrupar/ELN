@@ -1,5 +1,5 @@
 from django import forms
-from .models import Sample
+from .models import Sample, Species
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit 
 
@@ -12,3 +12,13 @@ class SampleForm(forms.ModelForm):
         super(SampleForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Add Sample'))
+
+class SpeciesForm(forms.ModelForm):
+    class Meta:
+        model = Species
+        exclude = ['added_by', 'date_created']
+    
+    def __init__(self, *args, **kwargs):
+        super(SpeciesForm, self).__init__(*args, **kwargs)  
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('submit', 'Submit'))

@@ -20,6 +20,7 @@ def profile_view(request):
         form = ProfileForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
+            messages.success(request, "User successfully updated!")
             return redirect("/")
 
         # Handle password change
