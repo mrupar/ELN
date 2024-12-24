@@ -1,7 +1,7 @@
 from django import forms
 from .models import Sample, Species
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit 
+from crispy_forms.layout import Submit, Button
 
 class SampleForm(forms.ModelForm):
     class Meta:
@@ -12,6 +12,14 @@ class SampleForm(forms.ModelForm):
         super(SampleForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Add Sample'))
+        self.helper.add_input(
+                Button('cancel', 'Cancel', css_class='btn btn-secondary', onclick="window.history.back()")
+            )
+
+        if self.instance and self.instance.pk:
+            self.helper.add_input(
+                Submit('delete', 'Delete', css_class='btn btn-danger')
+            )
 
 class SpeciesForm(forms.ModelForm):
     class Meta:
@@ -22,3 +30,12 @@ class SpeciesForm(forms.ModelForm):
         super(SpeciesForm, self).__init__(*args, **kwargs)  
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
+        self.helper.add_input(
+                Button('cancel', 'Cancel', css_class='btn btn-secondary', onclick="window.history.back()")
+            )
+
+        if self.instance and self.instance.pk:
+            self.helper.add_input(
+                Submit('delete', 'Delete', css_class='btn btn-danger')
+            )
+            

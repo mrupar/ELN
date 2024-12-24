@@ -1,21 +1,23 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-    
-{% block title %}Add Species{% endblock %}
 
-{% block header %}
-    <h1>Add Species</h1>
+{% block title %}
+    {% if species %}Edit Species{% else %}Add Species{% endif %}
 {% endblock %}
 
-{% block content %} 
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-4">
-            <form method="post">
-                {% csrf_token %}
-                {% crispy form %}
-            </form>
+{% block header %}
+    <h1>{% if species %}Edit Species{% else %}Add Species{% endif %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <form method="post">
+                    {% csrf_token %}
+                    {% crispy form %}
+                </form>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
