@@ -3,24 +3,26 @@ from django.contrib import messages
 from .models import Sample, Species
 from .tables import SampleTable, SpeciesTable
 from .forms import SampleForm, SpeciesForm
+from .filters import SampleFilter
 
 # SAMPLES
 def samples(request):
-    table = SampleTable(Sample.objects.all())
-    return render(request, 'samples/samples.html', {'table': table})
+    filter = SampleFilter(request.GET, queryset=Sample.objects.all())
+    table = SampleTable(filter.qs)
+    return render(request, 'samples/samples.html', {'table': table, 'filter': filter})
 
 def add_edit_sample(request, pk=None):
     sample = get_object_or_404(Sample, pk=pk) if pk else None
     if request.method == 'POST':
         if 'delete' in request.POST:
-            if species:
-                species.delete()
-                messages.success(request, "Species deleted successfully!")
+            if sample:
+                sample.delete()
+                messages.success(request, "Sample deleted successfully!")
                 return redirect('samples')
         else:
             form = SampleForm(request.POST, instance=sample)
             if form.is_valid():
-                form.instance.added_by = request.user
+                form.instance.created_by = request.user
                 form.save()
                 messages.success(request, "Sample successfully added!")
                 return redirect("samples")

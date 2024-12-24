@@ -7,6 +7,11 @@ class SampleForm(forms.ModelForm):
     class Meta:
         model = Sample
         exclude = ['created_by', 'date_created', 'modified_by', 'modified_at', 'uid']
+        widgets = {
+            'collection_date': forms.DateInput(attrs={'type': 'date'}),
+            'description': forms.Textarea(attrs={'rows': 3}),
+            'number_of_samples': forms.NumberInput(attrs={'min': 1}),
+        }
 
     def __init__(self, *args, **kwargs):
         super(SampleForm, self).__init__(*args, **kwargs)

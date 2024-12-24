@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
     
 {% block title %}Samples{% endblock %}
 
@@ -7,7 +8,13 @@
     <h1>Samples</h1>
 {% endblock %}
 
-{% block content %}        
+{% block content %}
+    <div class="mx-2 my-2">
+        <form method="get">
+            {{ filter.form|crispy }}
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
     <a href="{% url 'add_sample' %}" class="btn btn-primary mx-2 my-2">Add Sample</a>
     <div class="mx-2 my-2">
         <div class="table-responsive">

@@ -76,7 +76,6 @@ class Sample(models.Model):
     description = models.TextField(blank=True, null=True, verbose_name="Sample Description")
     date_created = models.DateTimeField(auto_now_add=True)
     number_of_samples = models.PositiveIntegerField(default=1, verbose_name="Number of Subsamples")
-    
     collection_date = models.DateField(blank=True, null=True, verbose_name="Collection Date")
     modified_by = models.ForeignKey(
         'users.CustomUser', related_name='modified_samples', on_delete=models.SET_NULL, null=True, blank=True
@@ -85,3 +84,29 @@ class Sample(models.Model):
 
     def __str__(self):
         return f"{self.name} (UID: {self.uid})"
+    
+    def save(self, *args, **kwargs):
+        samples_to_create = []
+        max_id = Sample.objects.all().aggregate(models.Max('id'))['id__max']
+        if max_id is None:
+            max_id = 0
+        self.uid = 'LME' + str(max_id + 1).zfill(4)
+        if self.number_of_samples > 1:
+            for _ in range(self.number_of_samples):
+                sample = Sample(
+                    species=self.species,
+                    sample_provider=self.sample_provider,
+                    project=self.project,
+                    created_by=self.created_by,
+                    storaging=self.storaging,
+                    uid=self.uid,
+                    name=self.name,
+                    description=self.description,
+                    collection_date=self.collection_date
+                )
+                max_id += 1
+                self.uid = 'LME' + str(max_id + 1).zfill(4)
+                samples_to_create.append(sample)
+            Sample.objects.bulk_create(samples_to_create)
+        else:
+            super(Sample, self).save(*args, **kwargs)
