@@ -9,10 +9,9 @@
 {% endblock %}
 
 {% block content %}
-    <div class="mx-2 my-2">
+    <div class="mx-2 my-2" style="width: 18rem;">
         <form method="get">
-            {{ filter.form|crispy }}
-            <button type="submit" class="btn btn-primary">Search</button>
+            {% crispy filter.form %}
         </form>
     </div>
     <a href="{% url 'add_sample' %}" class="btn btn-primary mx-2 my-2">Add Sample</a>

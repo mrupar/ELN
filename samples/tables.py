@@ -11,7 +11,7 @@ class SampleTable(tables.Table):
         model = Sample
         attrs = {"class": "table table-striped table-hover table-bordered shadow-sm"}
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("uid", "name", "species", "sample_provider", "project", "date_created")
+        fields = ("uid", "name", "species", "sample_provider", "project")
 
 class SpeciesTable(tables.Table):
     scientific_name = tables.TemplateColumn(
