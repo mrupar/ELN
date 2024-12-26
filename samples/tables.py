@@ -18,10 +18,13 @@ class SpeciesTable(tables.Table):
         '<a href="{% url "edit_species" record.id %}">{{ record.scientific_name }}</a>',
         verbose_name='Scientific Name'
     )
-    samples = tables.Column(accessor='sample_set.count', verbose_name='Samples')
+    samples = tables.TemplateColumn(
+        '<a href="{% url "samples" %}?species={{ record.id }}"> Samples of {{ record.scientific_name }}</a>',
+        verbose_name='Samples'
+    )
 
     class Meta:
         model = Species
         attrs = {"class": "table table-striped table-hover table-bordered shadow-sm"}
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("scientific_name", "genus", "family", "order", "common_name", "subspecies")
+        fields = ("scientific_name", "genus", "family", "order", "common_name", "subspecies", "samples")
