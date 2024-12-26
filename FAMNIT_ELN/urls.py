@@ -15,12 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 from .home import home
+from samples.autocomplete import SpeciesAutocomplete, ProjectAutocomplete, SampleProviderAutocomplete
 
 urlpatterns = [
     path("", home, name='home'),
     path('admin/', admin.site.urls),
     path("samples/", include("samples.urls")),
     path("users/", include("users.urls")),
+    # Autocomplete
+    re_path(r'^species-autocomplete/$', SpeciesAutocomplete.as_view(), name='species-autocomplete'),
+    re_path(r'^project-autocomplete/$', ProjectAutocomplete.as_view(), name='project-autocomplete'),
+    re_path(r'^sample-provider-autocomplete/$', SampleProviderAutocomplete.as_view(), name='sample-provider-autocomplete'),
 ]

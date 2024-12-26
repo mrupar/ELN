@@ -3,7 +3,7 @@ from django.contrib import messages
 from .models import Sample, Species
 from .tables import SampleTable, SpeciesTable
 from .forms import SampleForm, SpeciesForm
-from .filters import SampleFilter
+from .filters import SampleFilter, SpeciesFilter
 
 # SAMPLES
 def samples(request):
@@ -32,8 +32,14 @@ def add_edit_sample(request, pk=None):
 #------------------------------------------------------------
 # SPECIES
 def species(request):
-    table = SpeciesTable(Species.objects.all())
-    return render(request, 'samples/species.html', {'table': table})
+    queryset = Species.objects.all()
+    filter = SpeciesFilter(request.GET, queryset=queryset)
+    table = SpeciesTable(filter.qs)
+    return render(
+        request,
+        'samples/species.html',
+        {'table': table, 'filter': filter}
+    )
 
 def add_edit_species(request, pk=None):
     species = get_object_or_404(Species, pk=pk) if pk else None
