@@ -1,6 +1,6 @@
 from dal import autocomplete
 from django import forms
-from django_countries.fields import CountryField
+from django_countries import countries
 from .models import Sample, Species, Project, SampleProvider
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Button
@@ -66,6 +66,7 @@ class ProjectForm(forms.ModelForm):
 class SampleProviderForm(forms.ModelForm):
     address = forms.CharField(widget=forms.Textarea(attrs={'rows': 1}))
     country = forms.ChoiceField(
+        choices=countries,
         widget=autocomplete.ListSelect2(url='country-autocomplete'),
     )
 

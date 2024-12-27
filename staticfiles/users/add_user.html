@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Add User{% endblock %}
+
+{% block header %}
+    <h1>Add User</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <form method="post">
+                <p>When creating new user, password is by default set to "password123".<br>
+                    Please change this password when loged in.</p>
+                {% csrf_token %}
+                {% crispy form %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

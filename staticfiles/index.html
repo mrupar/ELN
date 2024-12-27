@@ -8,29 +8,14 @@
 {% endblock %}
 {% block content %}
     {% if user.is_authenticated %}
-    <div class="row g-4">
-        <div class="col-sm-6 col-md-4 col-lg-3">
-            <div style="position: relative; width: 100%; height: 100%; padding-top: 100%;">
-                <canvas id="speciesPieChart" 
-                        data-labels="{{ species_labels }}" 
-                        data-data="{{ species_data }}" 
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
-            </div>
-        </div>
-    
-        <div class="col-sm-6 col-md-4 col-lg-3">
-            <div style="position: relative; width: 100%; height: 100%; padding-top: 100%;">
-                <canvas id="providersBarChart" 
-                        data-labels="{{ providers_labels }}" 
-                        data-data="{{ providers_data }}" 
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
-            </div>
-        </div>
+    <div>
+        <canvas id="speciesPieChart" 
+        data-labels="{{ labels|escapejs }}" 
+        data-data="{{ data|escapejs }}" 
+        style="width:300px; height:300px;"></canvas>
     </div>
-    
-    
+
     <script src="{% static 'js/species_pie_chart.js' %}"></script>
-    <script src="{% static 'js/providers_bar_chart.js' %}"></script>
     
 
     <div class="container my-4">

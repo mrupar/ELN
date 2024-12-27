@@ -29,9 +29,4 @@ class SampleProviderAutocomplete(autocomplete.Select2QuerySetView):
     
 class CountryAutocomplete(autocomplete.Select2ListView):
     def get_list(self):
-        query = self.q
-        return [
-            country 
-            for country in countries 
-            if query.lower() in country.name.lower()
-            ]
+        return countries
