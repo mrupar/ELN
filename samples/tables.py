@@ -1,5 +1,5 @@
 import django_tables2 as tables
-from .models import Sample, Species
+from .models import Sample, Species, Project, SampleProvider
 
 class SampleTable(tables.Table):
     uid = tables.TemplateColumn(
@@ -28,3 +28,27 @@ class SpeciesTable(tables.Table):
         attrs = {"class": "table table-striped table-hover table-bordered shadow-sm"}
         template_name = "django_tables2/bootstrap4.html"
         fields = ("scientific_name", "genus", "family", "order", "common_name", "subspecies", "samples")
+
+class ProjectTable(tables.Table):
+    name = tables.TemplateColumn(
+        '<a href="{% url "edit_project" record.id %}">{{ record.name }}</a>',
+        verbose_name='Name'
+    )
+
+    class Meta:
+        model = Project
+        attrs = {"class": "table table-striped table-hover table-bordered shadow-sm"}
+        template_name = "django_tables2/bootstrap4.html"
+        fields = ("name", "description", "active")
+
+class SampleProviderTable(tables.Table):
+    name = tables.TemplateColumn(
+        '<a href="{% url "edit_sample_provider" record.id %}">{{ record.name }}</a>',
+        verbose_name='Name'
+    )
+
+    class Meta:
+        model = SampleProvider
+        attrs = {"class": "table table-striped table-hover table-bordered shadow-sm"}
+        template_name = "django_tables2/bootstrap4.html"
+        fields = ("name", "short_name", "address", "country", "contact_email", "phone_number")

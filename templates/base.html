@@ -103,6 +103,9 @@
 
             {% block content %}
             {% endblock %}
+            
+            {{ filter.form.media }}
+            {{ form.media }}
         </main>
     </div>
     {% bootstrap_javascript %}

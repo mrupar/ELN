@@ -17,7 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path, re_path
 from .home import home
-from samples.autocomplete import SpeciesAutocomplete, ProjectAutocomplete, SampleProviderAutocomplete
+from samples.autocomplete import SpeciesAutocomplete, ProjectAutocomplete, SampleProviderAutocomplete, \
+    CountryAutocomplete
 
 urlpatterns = [
     path("", home, name='home'),
@@ -28,4 +29,5 @@ urlpatterns = [
     re_path(r'^species-autocomplete/$', SpeciesAutocomplete.as_view(), name='species-autocomplete'),
     re_path(r'^project-autocomplete/$', ProjectAutocomplete.as_view(), name='project-autocomplete'),
     re_path(r'^sample-provider-autocomplete/$', SampleProviderAutocomplete.as_view(), name='sample-provider-autocomplete'),
+    re_path(r'^country-autocomplete/$', CountryAutocomplete.as_view(), name='country-autocomplete'),
 ]
