@@ -3,71 +3,127 @@
 {% load static %}
 
 {% block title %}FELN{% endblock %}
+
 {% block header %}
     <h1 class="display-4">Welcome to FAMNIT Electronic Laboratory Notebook</h1>
 {% endblock %}
+
 {% block content %}
     {% if user.is_authenticated %}
-    <div class="row g-4">
-        <div class="col-sm-6 col-md-4 col-lg-3">
-            <div style="position: relative; width: 100%; height: 100%; padding-top: 100%;">
-                <canvas id="speciesPieChart" 
-                        data-labels="{{ species_labels }}" 
-                        data-data="{{ species_data }}" 
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
-            </div>
-        </div>
-    
-        <div class="col-sm-6 col-md-4 col-lg-3">
-            <div style="position: relative; width: 100%; height: 100%; padding-top: 100%;">
-                <canvas id="providersBarChart" 
-                        data-labels="{{ providers_labels }}" 
-                        data-data="{{ providers_data }}" 
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
-            </div>
-        </div>
-    </div>
-    
-    
-    <script src="{% static 'js/species_pie_chart.js' %}"></script>
-    <script src="{% static 'js/providers_bar_chart.js' %}"></script>
-    
+    <div class="container-fluid my-4">
+        <div class="row">
+            <!-- Left Column: Cards for Samples, Projects, Species, Providers, Users -->
+            <div class="col-sm-12 col-md-6 col-lg-2">
+                <!-- Samples Card -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <a href="{% url 'samples' %}" class="card-title h5 text-dark">Samples</a>
+                        <div class="card-text mt-2 p-1 rounded bg-light shadow-sm" style="font-size: 1.1rem; border: 1px solid #ddd;">
+                            <div class="row">
+                                <div class="col-4 d-flex justify-content-start"><strong>Total:</strong></div>
+                                <div class="col-8 text-center"><span>{{ total_samples }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="container my-4">
-        <div class="row g-4 justify-content-between">
-            <!-- Card 1 -->
-            <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="card h-100 shadow-sm">
+                <!-- Projects Card -->
+                <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Species</h5>
-                        <p class="card-text">Species studied by our department</p>
-                        <a href="{% url 'species' %}" class="btn btn-primary">See species</a>
+                        <a href="{% url 'projects' %}" class="card-title h5 text-dark">Projects</a>
+                        <div class="card-text mt-2 p-1 rounded bg-light shadow-sm" style="font-size: 1.1rem; border: 1px solid #ddd;">
+                            <div class="row">
+                                <div class="col-4 d-flex justify-content-start"><strong>Total:</strong></div>
+                                <div class="col-8 text-center"><span>{{ total_projects }}</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 d-flex justify-content-start"><strong>Active:</strong></div>
+                                <div class="col-8 text-center"><span>{{ projects_data.0 }}</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 d-flex justify-content-start"><strong>Inactive:</strong></div>
+                                <div class="col-8 text-center"><span>{{ projects_data.1 }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Species Card -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <a href="{% url 'species' %}" class="card-title h5 text-dark">Species</a>
+                        <div class="card-text mt-2 p-1 rounded bg-light shadow-sm" style="font-size: 1.1rem; border: 1px solid #ddd;">
+                            <div class="row">
+                                <div class="col-4 d-flex justify-content-start"><strong>Total:</strong></div>
+                                <div class="col-8 text-center"><span>{{ total_species }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Providers Card -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <a href="{% url 'sample_providers' %}" class="card-title h5 text-dark">Sample Providers</a>
+                        <div class="card-text mt-2 p-1 rounded bg-light shadow-sm" style="font-size: 1.1rem; border: 1px solid #ddd;">
+                            <div class="row">
+                                <div class="col-4 d-flex justify-content-start"><strong>Total:</strong></div>
+                                <div class="col-8 text-center"><span>{{ total_providers }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Card -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <a href="{% url 'home' %}" class="card-title h5 text-dark">Users</a>
+                        <div class="card-text mt-2 p-1 rounded bg-light shadow-sm" style="font-size: 1.1rem; border: 1px solid #ddd;">
+                            <div class="row">
+                                <div class="col-4 d-flex justify-content-start"><strong>Total:</strong></div>
+                                <div class="col-8 text-center"><span>{{ total_users }}</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-    
-            <!-- Card 2 -->
-            <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Projects</h5>
-                        <p class="card-text">Current projects</p>
-                        <a href="{% url 'projects' %}" class="btn btn-primary">See projects</a>
-                    </div>
+
+            <!-- Right Column: Charts -->
+            <div class="col-auto d-flex flex-grow-1">
+                <!-- Bar Chart (Take as much space as possible) -->
+                <div class="chart-container" style="position: relative; width: 100%; height: 100%; max-height: 600px;">
+                    <canvas id="providersBarChart" 
+                            data-labels="{{ providers_labels }}" 
+                            data-data="{{ providers_data }}" 
+                            data-title="Samples by Provider" 
+                            style="width: 100%; height: 100%;"></canvas>
                 </div>
             </div>
-    
-            <!-- Card 3 -->
-            <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Sample providers</h5>
-                        <p class="card-text">Providers of samples</p>
-                        <a href="{% url 'sample_providers' %}" class="btn btn-primary">See sample providers</a>
-                    </div>
+
+            <!-- Pie Charts: Stacked One Above the Other -->
+            <div class="col-auto">
+                <!-- Species Pie Chart -->
+                <div class="chart-container d-flex flex-grow-1" style="position: relative; margin-bottom: 20px; max-height: 300px;">
+                    <canvas id="speciesPieChart" 
+                            data-labels="{{ species_labels }}" 
+                            data-data="{{ species_data }}" 
+                            data-title="Samples by Species" 
+                            style="width: 100%; height: 100%;"></canvas>
+                </div>
+            
+                <!-- Projects Pie Chart -->
+                <div class="chart-container d-flex flex-grow-1" style="position: relative; max-height: 300px;">
+                    <canvas id="projectsPieChart" 
+                            data-labels="{{ projects_labels }}" 
+                            data-data="{{ projects_data }}" 
+                            data-title="Active Projects" 
+                            style="width: 100%; height: 100%;"></canvas>
                 </div>
             </div>
+            
         </div>
     </div>
-    {% endif %}    
+
+    <script src="{% static 'js/chart.js' %}"></script>
+    {% endif %}
 {% endblock %}
