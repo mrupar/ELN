@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
+    
+{% block title %}Users{% endblock %}
+
+{% block header %}
+    <h1>Users</h1>
+{% endblock %}
+
+{% block content %}   
+    <div class="mx-2 my-2">
+        <form method="get" class="mb-4">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="form-floating">
+                        {{ filter.form.username }}
+                        <label for="id_scientific_name">Username</label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="form-floating">
+                        {{ filter.form.first_name }}
+                        <label for="id_scientific_name">User Name</label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="form-floating">
+                        {{ filter.form.last_name }}
+                        <label for="id_scientific_name">User Last Name</label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="form-floating">
+                        {{ filter.form.is_active }}
+                        <label for="id_scientific_name">Is Active</label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="form-floating">
+                        {{ filter.form.is_staff }}
+                        <label for="id_scientific_name">Is Staff</label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="form-floating">
+                        {{ filter.form.is_superuser }}
+                        <label for="id_scientific_name">Is Superuser</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-flex">
+                <button type="submit" class="btn btn-primary me-2">Apply Filters</button>
+                <a href="{% url 'add_user' %}" class="btn btn-primary">Add User</a>
+            </div>
+        </form>
+        
+    </div>     
+    <div class="mx-2 my-2">
+        <div class="table-responsive">
+            {% render_table table %}
+        </div>
+    </div>
+{% endblock %}

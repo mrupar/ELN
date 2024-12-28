@@ -1,15 +1,17 @@
 from django.contrib import messages
 from django.contrib.auth import logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from .forms import ProfileForm, AddUserForm
+from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import ProfileForm, AddUserForm, EditUserForm
+from .tables import UserTable
+from .filters import UserFilter
 from .models import CustomUser
 
 @login_required
 def logout_view(request):
     logout(request)
     return redirect("/") # Redirect to the home page (URL name)
-
 
 @login_required
 def profile_view(request):
@@ -53,8 +55,17 @@ def profile_view(request):
         "form": form,
     })
 
+
 @login_required
-def add_user_view(request):
+@staff_member_required
+def users_view(request):
+    filter = UserFilter(request.GET, queryset=CustomUser.objects.all())
+    table = UserTable(filter.qs)
+    return render(request, "users/users.html", {'table': table, 'filter': filter})
+
+@login_required
+@staff_member_required
+def add_user(request):
     form = AddUserForm()
     if request.method == "POST":
         form = AddUserForm(request.POST)
@@ -75,4 +86,23 @@ def add_user_view(request):
                 messages.error(request, f"Error creating user: {str(e)}")
         else:
             messages.error(request, "Invalid form submission.")
-    return render(request, "users/add_user.html", {"form": form})
+    return render(request, "users/add_edit_user.html", {"form": form})
+
+@login_required
+@staff_member_required
+def edit_user(request, pk):
+    user = get_object_or_404(CustomUser, pk=pk)
+    form = EditUserForm(instance=user)
+    if request.method == "POST":
+        if 'delete' in request.POST:
+            if user:
+                user.delete()
+                messages.success(request, "User deleted successfully!")
+                return redirect('users')
+        else:
+            form = EditUserForm(request.POST, instance=user)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "User successfully added!")
+                return redirect("users")
+    return render(request, "users/add_edit_user.html", {"form": form})

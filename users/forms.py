@@ -1,7 +1,7 @@
 from django import forms
 from .models import CustomUser as User
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit 
+from crispy_forms.layout import Submit, Button
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -59,3 +59,32 @@ class AddUserForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    
+class EditUserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["email", "first_name", "last_name", "is_active", "is_staff", "is_superuser"]
+        widgets = {
+            "email": forms.EmailInput(attrs={"class": "form-control", "placeholder": "Enter your email"}),
+            "first_name": forms.TextInput(attrs={"class": "form-control", "placeholder": "Enter your first name"}),
+            "last_name": forms.TextInput(attrs={"class": "form-control", "placeholder": "Enter your last name"}),
+            "is_staff": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+            "is_active": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+            "is_superuser": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Initialize the FormHelper
+        self.helper = FormHelper()
+        # Add the submit button
+        self.helper.add_input(Submit('submit', 'Update User'))
+
+        self.helper.add_input(
+                Button('cancel', 'Cancel', css_class='btn btn-secondary', onclick="window.history.back()")
+            )
+
+        if self.instance and self.instance.pk:
+            self.helper.add_input(
+                Submit('delete', 'Delete', css_class='btn btn-danger')
+            )
