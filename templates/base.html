@@ -23,11 +23,6 @@
             <a class="navbar-brand ms-3" href="/">FAMNIT ELN</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    {% if user.is_staff %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users' %}">{% bs_icon 'person-add' %} Users</a>
-                        </li>
-                    {% endif %}
                     {% if user.is_authenticated %}
                         <!-- Display if user is logged in -->
                         <li class="nav-item">
@@ -56,8 +51,13 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li>
-                    <a href="/samples" class="nav-link text-white">
-                        {% bs_icon 'trash2' %} Samples
+                    <a href="{% url 'samples' %}" class="nav-link text-white">
+                        {% bs_icon 'trash2' %} Isolation
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        PCR
                     </a>
                 </li>
                 <li>
@@ -68,11 +68,6 @@
                 <li>
                     <a href="#" class="nav-link text-white">
                         Ex2
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link text-white">
-                        Ex3
                     </a>
                 </li>
             </ul>

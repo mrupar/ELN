@@ -75,9 +75,10 @@
                 </div>
 
                 <!-- Users Card -->
+                 {% if user.is_staff %}
                 <div class="card mb-3">
                     <div class="card-body">
-                        <a href="{% url 'home' %}" class="card-title h5 text-dark">Users</a>
+                        <a href="{% url 'users' %}" class="card-title h5 text-dark">Users</a>
                         <div class="card-text mt-2 p-1 rounded bg-light shadow-sm" style="font-size: 1.1rem; border: 1px solid #ddd;">
                             <div class="row">
                                 <div class="col-4 d-flex justify-content-start"><strong>Total:</strong></div>
@@ -86,6 +87,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
 
             <!-- Right Column: Charts -->
