@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'dal_select2',
     'chartjs',
     'rest_framework',
+    'simple_history',
     'samples',
     'users',
 ]
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'FAMNIT_ELN.urls'

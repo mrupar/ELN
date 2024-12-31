@@ -1,5 +1,6 @@
 from django.db import models
-from django_countries.fields import CountryField  # For standard country field
+from django_countries.fields import CountryField
+from simple_history.models import HistoricalRecords
 
 class Project(models.Model):
     name = models.CharField(
@@ -14,6 +15,7 @@ class Project(models.Model):
         default=True,
         verbose_name="Active",
         )
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -40,6 +42,7 @@ class SampleProvider(models.Model):
         blank=True, null=True, 
         verbose_name="Phone Number",
         )
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -72,27 +75,10 @@ class Species(models.Model):
         blank=True, null=True, 
         verbose_name="Subspecies",
         )
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.scientific_name
-
-class Storaging(models.Model):
-    name = models.CharField(
-        max_length=100, 
-        verbose_name="Location Name",
-        )
-    short_name = models.CharField(
-        max_length=10, 
-        verbose_name="Short Name", 
-        unique=True,
-        )
-    type = models.CharField(
-        max_length=100, 
-        verbose_name="Type",
-        )
-
-    def __str__(self):
-        return self.name
 
 class Sample(models.Model):
     species = models.ForeignKey(
@@ -112,12 +98,6 @@ class Sample(models.Model):
         related_name='samples', 
         on_delete=models.CASCADE, 
         verbose_name="Project",
-    )
-    storaging = models.ForeignKey(
-        Storaging, 
-        related_name='samples', 
-        on_delete=models.CASCADE, 
-        verbose_name="Storage Location",
     )
     uid = models.CharField(
         max_length=10, 
@@ -140,6 +120,7 @@ class Sample(models.Model):
         blank=True, null=True, 
         verbose_name="Collection Date",
         )
+    history = HistoricalRecords()
 
     def __str__(self):
         return f"{self.name} (UID: {self.uid})"

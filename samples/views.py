@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Sample, Species, Project, SampleProvider
-from .tables import SampleTable, SpeciesTable, ProjectTable, SampleProviderTable
+from .tables import SampleTable, SpeciesTable, ProjectTable, SampleProviderTable, \
+    ProjectHistoryTable, SampleHistoryTable, SpeciesHistoryTable, SampleProviderHistoryTable
 from .forms import SampleForm, SpeciesForm, ProjectForm, SampleProviderForm
 from .filters import SampleFilter, SpeciesFilter, ProjectFilter, SampleProviderFilter
 
@@ -28,6 +29,17 @@ def add_edit_sample(request, pk=None):
     else:
         form = SampleForm(instance=sample)
     return render(request, 'samples/add_edit_sample.html', {'form': form, 'sample': sample})
+
+def sample_history(request, pk):
+    sample = get_object_or_404(Sample, pk=pk)
+    history_records = sample.history.all().order_by("-history_date")
+    table = SampleHistoryTable(history_records)
+
+    return render(request, "history.html", {
+        'name': f'Sample {sample.name}: {sample.uid}',
+        "instance": sample,
+        "table": table,
+    })
 
 #------------------------------------------------------------
 
@@ -62,6 +74,17 @@ def add_edit_species(request, pk=None):
 
     return render(request, 'samples/add_edit_species.html', {'form': form, 'species': species})
 
+def species_history(request, pk):
+    species = get_object_or_404(Species, pk=pk)
+    history_records = species.history.all().order_by("-history_date")
+    table = SpeciesHistoryTable(history_records)
+
+    return render(request, "history.html", {
+        "name": species.scientific_name,
+        "instance": species,
+        "table": table,
+    })
+
 #------------------------------------------------------------
 
 # PROJECTS
@@ -88,6 +111,17 @@ def add_edit_project(request, pk=None):
         form = ProjectForm(instance=project)
     return render(request, 'samples/add_edit_project.html', {'form': form, 'project': project})
 
+def project_history(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    history_records = project.history.all().order_by("-history_date")
+    table = ProjectHistoryTable(history_records)
+
+    return render(request, "history.html", {
+        "name": project.name,
+        "instance": project,
+        "table": table,
+    })
+
 #------------------------------------------------------------
 
 # SAMPLE PROVIDER
@@ -113,3 +147,14 @@ def add_edit_sample_provider(request, pk=None):
     else:
         form = SampleProviderForm(instance=sample_provider)
     return render(request, 'samples/add_edit_sample_provider.html', {'form': form, 'sample_provider': sample_provider})
+
+def sample_provider_history(request, pk):
+    sample_provider = get_object_or_404(SampleProvider, pk=pk)
+    history_records = sample_provider.history.all().order_by("-history_date")
+    table = SampleProviderHistoryTable(history_records)
+
+    return render(request, "history.html", {
+        "name": sample_provider.name,
+        "instance": sample_provider,
+        "table": table,
+    })

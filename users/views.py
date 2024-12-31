@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ProfileForm, AddUserForm, EditUserForm
-from .tables import UserTable
+from .tables import UserTable, UserHistoryTable
 from .filters import UserFilter
 from .models import CustomUser
 
@@ -106,3 +106,14 @@ def edit_user(request, pk):
                 messages.success(request, "User successfully added!")
                 return redirect("users")
     return render(request, "users/add_edit_user.html", {"form": form})
+
+def user_history(request, pk):
+    user = get_object_or_404(CustomUser, pk=pk)
+    history_records = user.history.all().order_by("-history_date")
+    table = UserHistoryTable(history_records)
+
+    return render(request, "history.html", {
+        "name": user.username,
+        "instance": user,
+        "table": table,
+    })
