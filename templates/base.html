@@ -23,6 +23,11 @@
             <a class="navbar-brand ms-3" href="/">FAMNIT ELN</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    {% if user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add_user' %}">{% bs_icon 'person-add' %} Add User</a>
+                        </li>
+                    {% endif %}
                     {% if user.is_authenticated %}
                         <!-- Display if user is logged in -->
                         <li class="nav-item">
@@ -127,5 +132,10 @@
     </div>
     {% endif %}
     {% bootstrap_javascript %}
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 </body>
 </html>

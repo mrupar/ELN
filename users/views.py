@@ -105,7 +105,7 @@ def edit_user(request, pk):
                 form.save()
                 messages.success(request, "User successfully added!")
                 return redirect("users")
-    return render(request, "users/add_edit_user.html", {"form": form})
+    return render(request, "users/add_edit_user.html", {"form": form, "pk": pk})
 
 def user_history(request, pk):
     user = get_object_or_404(CustomUser, pk=pk)

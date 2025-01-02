@@ -11,16 +11,13 @@
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-4">
-            <form method="post">
-                {% if user.is_staff %}
-                    {% csrf_token %}
-                    {% crispy form %}
-                {% else %}
-                    <p>When creating new user, password is by default set to "password123".<br>
-                        Please change this password when loged in.</p>
-                    {% csrf_token %}
-                    {% crispy form %}
+            <form method="post">      
+                {% if not pk %}          
+                <p>When creating new user, password is by default set to "password123".<br>
+                    Please change this password when loged in.</p>
                 {% endif %}
+                {% csrf_token %}
+                {% crispy form %}
             </form>
         </div>
     </div>

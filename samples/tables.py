@@ -5,8 +5,8 @@ from .models import Sample, Species, Project, SampleProvider
 class SampleTable(tables.Table):
     uid = tables.TemplateColumn(
         '''
-        <a href="{% url "edit_samples" record.id %}">{{ record.uid }}</a>
-        <a href="{% url "sample_history" record.id %}" class="ms-2">
+        <a href="{% url "edit_samples" record.id %}" data-toggle="tooltip" data-placement="top" title="Edit sample">{{ record.uid }}</a>
+        <a href="{% url "sample_history" record.id %}" class="ms-2" data-toggle="tooltip" data-placement="top" title="View history">
             {% load bootstrap_icons %}
             {% bs_icon 'clock-history' %}
         </a>
@@ -18,13 +18,14 @@ class SampleTable(tables.Table):
         model = Sample
         attrs = {"class": "table table-striped table-hover table-bordered shadow-sm"}
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("uid", "name", "species", "sample_provider", "project")
+        fields = ("uid", "name", "species", "sample_provider", "project")    
+        order_by = ["-uid"]
 
 class SpeciesTable(tables.Table):
     scientific_name = tables.TemplateColumn(
         '''
-        <a href="{% url "edit_species" record.id %}">{{ record.scientific_name }}</a>
-        <a href="{% url "species_history" record.id %}" class="ms-2">
+        <a href="{% url "edit_species" record.id %}" data-toggle="tooltip" data-placement="top" title="Edit species">{{ record.scientific_name }}</a>
+        <a href="{% url "species_history" record.id %}" class="ms-2" data-toggle="tooltip" data-placement="top" title="View history">
             {% load bootstrap_icons %}
             {% bs_icon 'clock-history' %}
         </a>
@@ -45,8 +46,8 @@ class SpeciesTable(tables.Table):
 class ProjectTable(tables.Table):
     name = tables.TemplateColumn(
         '''
-        <a href="{% url "edit_project" record.id %}">{{ record.name }}</a>
-        <a href="{% url "project_history" record.id %}" class="ms-2">
+        <a href="{% url "edit_project" record.id %}" data-toggle="tooltip" data-placement="top" title="Edit project">{{ record.name }}</a>
+        <a href="{% url "project_history" record.id %}" class="ms-2" data-toggle="tooltip" data-placement="top" title="View history">
             {% load bootstrap_icons %}
             {% bs_icon 'clock-history' %}
         </a>
@@ -63,8 +64,8 @@ class ProjectTable(tables.Table):
 class SampleProviderTable(tables.Table):
     name = tables.TemplateColumn(
         '''
-        <a href="{% url "edit_sample_provider" record.id %}">{{ record.name }}</a>
-        <a href="{% url "sample_provider_history" record.id %}" class="ms-2">
+        <a href="{% url "edit_sample_provider" record.id %}" data-toggle="tooltip" data-placement="top" title="Edit provider">{{ record.name }}</a>
+        <a href="{% url "sample_provider_history" record.id %}" class="ms-2" data-toggle="tooltip" data-placement="top" title="View history">
             {% load bootstrap_icons %}
             {% bs_icon 'clock-history' %}
         </a>
@@ -80,7 +81,7 @@ class SampleProviderTable(tables.Table):
 
 # History Tables
 class ProjectHistoryTable(tables.Table):
-    history_date = tables.DateTimeColumn(verbose_name="Date")
+    history_date = tables.DateTimeColumn(verbose_name="Date", format="d.m.Y H:i")
     history_user = tables.Column(verbose_name="Modified By")
     history_type = tables.Column(verbose_name="Change Type", accessor="get_history_type_display")
     changes = tables.Column(empty_values=(), verbose_name="Changes")
@@ -104,7 +105,7 @@ class ProjectHistoryTable(tables.Table):
         return "No previous record"
     
 class SampleHistoryTable(tables.Table):
-    history_date = tables.DateTimeColumn(verbose_name="Date")
+    history_date = tables.DateTimeColumn(verbose_name="Date", format="d.m.Y H:i")
     history_user = tables.Column(verbose_name="Modified By")
     history_type = tables.Column(verbose_name="Change Type", accessor="get_history_type_display")
     changes = tables.Column(empty_values=(), verbose_name="Changes")
@@ -128,7 +129,7 @@ class SampleHistoryTable(tables.Table):
         return "No previous record"
     
 class SpeciesHistoryTable(tables.Table):
-    history_date = tables.DateTimeColumn(verbose_name="Date")
+    history_date = tables.DateTimeColumn(verbose_name="Date", format="d.m.Y H:i")
     history_user = tables.Column(verbose_name="Modified By")
     history_type = tables.Column(verbose_name="Change Type", accessor="get_history_type_display")
     changes = tables.Column(empty_values=(), verbose_name="Changes")
@@ -152,7 +153,7 @@ class SpeciesHistoryTable(tables.Table):
         return "No previous record"
     
 class SampleProviderHistoryTable(tables.Table):
-    history_date = tables.DateTimeColumn(verbose_name="Date")
+    history_date = tables.DateTimeColumn(verbose_name="Date", format="d.m.Y H:i")
     history_user = tables.Column(verbose_name="Modified By")
     history_type = tables.Column(verbose_name="Change Type", accessor="get_history_type_display")
     changes = tables.Column(empty_values=(), verbose_name="Changes")

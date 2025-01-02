@@ -5,14 +5,15 @@ from django.utils.html import format_html
 class UserTable(tables.Table):
     username = tables.TemplateColumn(
         '''
-        <a href="{% url "edit_user" record.id %}">{{ record.username }}</a>
-        <a href="{% url "user_history" record.id %}" class="ms-2">
+        <a href="{% url "edit_user" record.id %}" data-toggle="tooltip" data-placement="top" title="Edit user">{{ record.username }}</a>
+        <a href="{% url "user_history" record.id %}" class="ms-2" data-toggle="tooltip" data-placement="top" title="View history">
             {% load bootstrap_icons %}
             {% bs_icon 'clock-history' %}
         </a>
         ''',
         verbose_name='username'
     )
+    date_joined = tables.DateTimeColumn(verbose_name="Date Joined", format="d.m.Y H:i")
 
     class Meta:
         model = CustomUser
@@ -21,7 +22,7 @@ class UserTable(tables.Table):
         fields = ("username", "email", "first_name", "last_name", "is_active", "is_staff", "is_superuser", "date_joined")
 
 class UserHistoryTable(tables.Table):
-    history_date = tables.DateTimeColumn(verbose_name="Date")
+    history_date = tables.DateTimeColumn(verbose_name="Date", format="d.m.Y H:i")
     history_user = tables.Column(verbose_name="Modified By")
     history_type = tables.Column(verbose_name="Change Type", accessor="get_history_type_display")
     changes = tables.Column(empty_values=(), verbose_name="Changes")
