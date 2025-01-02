@@ -24,7 +24,7 @@ class SampleForm(forms.ModelForm):
 
         if self.instance and self.instance.pk:
             self.helper.add_input(
-                Submit('delete', 'Delete', css_class='btn btn-danger')
+                Submit('delete', 'Delete', css_class='btn btn-danger', onclick="return confirm('Are you sure you want to delete this sample?');")
             )
 
 class SpeciesForm(forms.ModelForm):
@@ -42,7 +42,7 @@ class SpeciesForm(forms.ModelForm):
 
         if self.instance and self.instance.pk:
             self.helper.add_input(
-                Submit('delete', 'Delete', css_class='btn btn-danger')
+                Submit('delete', 'Delete', css_class='btn btn-danger', onclick="return confirm('Are you sure you want to delete this species?');")
             )
             
 class ProjectForm(forms.ModelForm):
@@ -60,7 +60,7 @@ class ProjectForm(forms.ModelForm):
 
         if self.instance and self.instance.pk:
             self.helper.add_input(
-                Submit('delete', 'Delete', css_class='btn btn-danger')
+                Submit('delete', 'Delete', css_class='btn btn-danger', onclick="return confirm('Are you sure you want to delete this project?');")
             )
 
 class SampleProviderForm(forms.ModelForm):
@@ -84,5 +84,5 @@ class SampleProviderForm(forms.ModelForm):
 
         if self.instance and self.instance.pk:
             self.helper.add_input(
-                Submit('delete', 'Delete', css_class='btn btn-danger')
+                Submit('delete', 'Delete', css_class='btn btn-danger', onclick="return confirm('Are you sure you want to delete this sample provider?');")
             )

@@ -11,7 +11,7 @@ def add_edit_instance(request, form, instance, redirect_url, type, action):
         if 'delete' in request.POST:
             if instance:
                 instance.delete()
-                messages.success(request, f"{type} {action} successfully!")
+                messages.success(request, f"{type} deleted successfully!")
                 return redirect(redirect_url)
         else:
             form = form(request.POST, instance=instance)

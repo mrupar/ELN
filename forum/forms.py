@@ -18,7 +18,7 @@ class CategoryForm(forms.ModelForm):
 
         if self.instance and self.instance.pk:
             self.helper.add_input(
-                Submit('delete', 'Delete', css_class='btn btn-danger')
+                Submit('delete', 'Delete', css_class='btn btn-danger', onclick="return confirm('Are you sure you want to delete this category?');")
             )
 
 class ThreadForm(forms.ModelForm):

@@ -141,6 +141,11 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
+        document.getElementById('delete-threads-button').addEventListener('click', function(event) {
+            if (!confirm('Are you sure you want to delete the selected threads?')) {
+                event.preventDefault();
+            }
+        });        
     </script>
 </body>
 </html>
