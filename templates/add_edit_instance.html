@@ -2,11 +2,11 @@
 {% load crispy_forms_tags %}
     
 {% block title %}
-    {% if sample %}Edit Sample{% else %}Add Sample{% endif %}
+    {% if instance %}Edit {{ type }}{% else %}Add {{ type }}{% endif %}
 {% endblock %}
 
 {% block header %}
-    <h1>{% if sample %}Edit Sample{% else %}Add Sample{% endif %}</h1>
+    <h1>{% if instance %}Edit {{ type }}{% else %}Add {{ type }}{% endif %}</h1>
 {% endblock %}
 
 {% block content %} 

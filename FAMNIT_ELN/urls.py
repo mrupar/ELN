@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("samples/", include("samples.urls")),
     path("users/", include("users.urls")),
+    path("forum/", include("forum.urls")),
     # Autocomplete
     re_path(r'^species-autocomplete/$', SpeciesAutocomplete.as_view(), name='species-autocomplete'),
     re_path(r'^project-autocomplete/$', ProjectAutocomplete.as_view(), name='project-autocomplete'),

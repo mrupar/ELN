@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'simple_history',
     'samples',
     'users',
+    'forum',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

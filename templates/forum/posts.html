@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}{{ thread.title }} - Posts{% endblock %}
+
+{% block header %}
+    <h1>{{ thread.title }}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid my-2">
+    <!-- Display all posts in the thread -->
+    <ul class="list-group">
+        {% for post in posts %}
+        <li class="list-group-item {% if forloop.first %}list-group-item-secondary{% endif %}">
+            <strong>{{ post.author }}:</strong>
+            <p>{{ post.content }}</p>
+            <small class="text-muted">Posted on {{ post.created_at|date:"d.m.Y H:i" }}</small>
+        </li>
+        {% empty %}
+        <li class="list-group-item text-center text-muted">
+            No posts yet. Be the first to reply!
+        </li>
+        {% endfor %}
+    </ul>
+    
+    <!-- Reply form -->
+    {% if form %}
+    <div class="my-3">
+        <div class="row">
+            <div class="col-md-6 col-lg-4">    
+                <h3>Reply to Thread</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {% crispy form %}
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    {% endif %}
+</div>
+{% endblock %}

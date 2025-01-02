@@ -137,7 +137,6 @@ class Sample(models.Model):
                     species=self.species,
                     sample_provider=self.sample_provider,
                     project=self.project,
-                    storaging=self.storaging,
                     uid=self.uid,
                     name=self.name,
                     description=self.description,
