@@ -1,6 +1,7 @@
 import django_tables2 as tables
 from django.utils.html import format_html
 from .models import Sample, Species, Project, SampleProvider
+from django.utils.safestring import mark_safe
 
 class SampleTable(tables.Table):
     uid = tables.TemplateColumn(
@@ -18,7 +19,14 @@ class SampleTable(tables.Table):
     delete_checkbox = tables.TemplateColumn(
         '<input type="checkbox" name="samples_to_delete" value="{{ record.id }}" class="delete-checkbox">',
         orderable=False,
-        verbose_name='Delete'
+        verbose_name=format_html(
+            '''
+            <div>
+                <label for="select_all_checkbox" class="mb-0 mr-2" title="Select All">Delete</label>
+                <input type="checkbox" name="select_all" class="checkbox" title="Select All" id="select_all_checkbox">
+            </div>
+            '''
+        )
     )
 
     class Meta:

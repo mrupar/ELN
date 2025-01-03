@@ -140,7 +140,17 @@
             if (!confirm('Are you sure you want to delete selection?')) {
                 event.preventDefault();
             }
-        });       
+        });     
+        document.addEventListener('DOMContentLoaded', function () {
+            const selectAllCheckbox = document.getElementById('select_all_checkbox');
+            const deleteCheckboxes = document.querySelectorAll('.delete-checkbox');
+    
+            selectAllCheckbox.addEventListener('change', function () {
+                deleteCheckboxes.forEach(checkbox => {
+                    checkbox.checked = selectAllCheckbox.checked;
+                });
+            });
+        });  
     </script>
 </body>
 </html>
