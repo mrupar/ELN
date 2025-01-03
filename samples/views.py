@@ -5,6 +5,7 @@ from .tables import SampleTable, SpeciesTable, ProjectTable, SampleProviderTable
     ProjectHistoryTable, SampleHistoryTable, SpeciesHistoryTable, SampleProviderHistoryTable
 from .forms import SampleForm, SpeciesForm, ProjectForm, SampleProviderForm
 from .filters import SampleFilter, SpeciesFilter, ProjectFilter, SampleProviderFilter
+from django_tables2 import RequestConfig
 
 def add_edit_instance(request, form, instance, redirect_url, type, action):
     if request.method == 'POST':
@@ -31,7 +32,12 @@ def add_edit_instance(request, form, instance, redirect_url, type, action):
 def samples(request):
     filter = SampleFilter(request.GET, queryset=Sample.objects.all())
     table = SampleTable(filter.qs)
-    return render(request, 'samples/samples.html', {'table': table, 'filter': filter})
+    RequestConfig(request, paginate={"per_page": 50}).configure(table)
+    return render(
+        request, 
+        'samples/samples.html', 
+        {'table': table, 'filter': filter}
+        )
 
 def add_edit_sample(request, pk=None):
     sample = get_object_or_404(Sample, pk=pk) if pk else None
@@ -60,9 +66,9 @@ def sample_history(request, pk):
 
 # SPECIES
 def species(request):
-    queryset = Species.objects.all()
-    filter = SpeciesFilter(request.GET, queryset=queryset)
+    filter = SpeciesFilter(request.GET, queryset=Species.objects.all())
     table = SpeciesTable(filter.qs)
+    RequestConfig(request, paginate={"per_page": 50}).configure(table)
     return render(
         request,
         'samples/species.html',
@@ -98,7 +104,12 @@ def species_history(request, pk):
 def projects(request):
     filter = ProjectFilter(request.GET, queryset=Project.objects.all())
     table = ProjectTable(filter.qs)
-    return render(request, 'samples/projects.html', {'table': table, 'filter': filter})
+    RequestConfig(request, paginate={"per_page": 50}).configure(table)
+    return render(
+        request, 
+        'samples/projects.html', 
+        {'table': table, 'filter': filter}
+        )
 
 def add_edit_project(request, pk=None):
     project = get_object_or_404(Project, pk=pk) if pk else None
@@ -129,7 +140,12 @@ def project_history(request, pk):
 def sample_provider(request):
     filter = SampleProviderFilter(request.GET, queryset=SampleProvider.objects.all())
     table = SampleProviderTable(filter.qs)
-    return render(request, 'samples/sample_provider.html', {'table': table, 'filter': filter})
+    RequestConfig(request, paginate={"per_page": 50}).configure(table)
+    return render(
+        request, 
+        'samples/sample_provider.html', 
+        {'table': table, 'filter': filter}
+        )
 
 def add_edit_sample_provider(request, pk=None):
     sample_provider = get_object_or_404(SampleProvider, pk=pk) if pk else None

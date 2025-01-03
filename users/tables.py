@@ -21,6 +21,38 @@ class UserTable(tables.Table):
         template_name = "django_tables2/bootstrap4.html"
         fields = ("username", "email", "first_name", "last_name", "is_active", "is_staff", "is_superuser", "date_joined")
 
+    def order_username(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "username")
+        return queryset, is_descending
+    
+    def order_email(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "email")
+        return queryset, is_descending
+    
+    def order_first_name(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "first_name")
+        return queryset, is_descending
+    
+    def order_last_name(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "last_name")
+        return queryset, is_descending
+    
+    def order_is_active(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "is_active")
+        return queryset, is_descending
+    
+    def order_is_staff(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "is_staff")
+        return queryset, is_descending
+    
+    def order_is_superuser(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "is_superuser")
+        return queryset, is_descending
+    
+    def order_date_joined(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "date_joined")
+        return queryset, is_descending
+
 class UserHistoryTable(tables.Table):
     history_date = tables.DateTimeColumn(verbose_name="Date", format="d.m.Y H:i")
     history_user = tables.Column(verbose_name="Modified By")

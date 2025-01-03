@@ -19,6 +19,8 @@ def login_user_form(request):
                 if user.check_password(password):
                     login(request, user)  # Log the user in
                     return redirect("/")  # Redirect to the home page
+                else:
+                    form.add_error(None, "Invalid username or password.")
             else:
                 form.add_error(None, "Invalid username or password.")
     else:

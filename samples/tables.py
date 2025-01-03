@@ -11,7 +11,8 @@ class SampleTable(tables.Table):
             {% bs_icon 'clock-history' %}
         </a>
         ''',
-        verbose_name='UID'
+        verbose_name='UID',
+        order_by="uid"  # Ensure this matches a field in the model
     )
 
     class Meta:
@@ -20,6 +21,27 @@ class SampleTable(tables.Table):
         template_name = "django_tables2/bootstrap4.html"
         fields = ("uid", "name", "species", "sample_provider", "project")    
         order_by = ["-uid"]
+
+    def order_uid(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "uid")
+        return queryset, is_descending
+
+    def order_name(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "name")
+        return queryset, is_descending
+
+    def order_species(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "species")
+        return queryset, is_descending
+
+    def order_sample_provider(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "sample_provider")
+        return queryset, is_descending
+
+    def order_project(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "project")
+        return queryset, is_descending
+
 
 class SpeciesTable(tables.Table):
     scientific_name = tables.TemplateColumn(
@@ -43,6 +65,34 @@ class SpeciesTable(tables.Table):
         template_name = "django_tables2/bootstrap4.html"
         fields = ("scientific_name", "genus", "family", "order", "common_name", "subspecies", "samples")
 
+    def order_scientific_name(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "scientific_name")
+        return queryset, is_descending
+    
+    def order_genus(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "genus")
+        return queryset, is_descending
+    
+    def order_family(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "family")
+        return queryset, is_descending
+    
+    def order_order(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "order")
+        return queryset, is_descending
+    
+    def order_common_name(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "common_name")
+        return queryset, is_descending
+    
+    def order_subspecies(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "subspecies")
+        return queryset, is_descending
+    
+    def order_samples(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "samples")
+        return queryset, is_descending
+
 class ProjectTable(tables.Table):
     name = tables.TemplateColumn(
         '''
@@ -61,6 +111,18 @@ class ProjectTable(tables.Table):
         template_name = "django_tables2/bootstrap4.html"
         fields = ("name", "description", "active")
 
+    def order_name(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "name")
+        return queryset, is_descending
+    
+    def order_description(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "description")
+        return queryset, is_descending
+    
+    def order_active(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "active")
+        return queryset, is_descending
+
 class SampleProviderTable(tables.Table):
     name = tables.TemplateColumn(
         '''
@@ -78,6 +140,30 @@ class SampleProviderTable(tables.Table):
         attrs = {"class": "table table-striped table-hover table-bordered shadow-sm"}
         template_name = "django_tables2/bootstrap4.html"
         fields = ("name", "short_name", "address", "country", "contact_email", "phone_number")
+
+    def order_name(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "name")
+        return queryset, is_descending
+    
+    def order_short_name(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "short_name")
+        return queryset, is_descending
+    
+    def order_address(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "address")
+        return queryset, is_descending
+    
+    def order_country(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "country")
+        return queryset, is_descending
+    
+    def order_contact_email(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "contact_email")
+        return queryset, is_descending
+    
+    def order_phone_number(self, queryset, is_descending):
+        queryset = queryset.order_by(("-" if is_descending else "") + "phone_number")
+        return queryset, is_descending
 
 # History Tables
 class ProjectHistoryTable(tables.Table):

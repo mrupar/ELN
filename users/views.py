@@ -7,6 +7,7 @@ from .forms import ProfileForm, AddUserForm, EditUserForm
 from .tables import UserTable, UserHistoryTable
 from .filters import UserFilter
 from .models import CustomUser
+from django_tables2 import RequestConfig
 
 @login_required
 def logout_view(request):
@@ -61,6 +62,7 @@ def profile_view(request):
 def users_view(request):
     filter = UserFilter(request.GET, queryset=CustomUser.objects.all())
     table = UserTable(filter.qs)
+    RequestConfig(request, paginate={"per_page": 50}).configure(table)
     return render(request, "users/users.html", {'table': table, 'filter': filter})
 
 @login_required
@@ -107,6 +109,8 @@ def edit_user(request, pk):
                 return redirect("users")
     return render(request, "users/add_edit_user.html", {"form": form, "pk": pk})
 
+@login_required
+@staff_member_required
 def user_history(request, pk):
     user = get_object_or_404(CustomUser, pk=pk)
     history_records = user.history.all().order_by("-history_date")
