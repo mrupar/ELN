@@ -43,7 +43,7 @@ def add_edit_thread(request, category_id, pk=None):
         if 'delete' in request.POST:
             if thread:
                 thread.delete()
-                messages.success(request, f"Thread {action} successfully!")
+                messages.success(request, f"Thread deleted successfully!")
                 return redirect('threads', category_id=category.id)
         else:
             form = ThreadForm(request.POST, instance=thread)

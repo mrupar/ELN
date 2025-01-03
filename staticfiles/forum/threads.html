@@ -17,7 +17,7 @@
         </div>
 
         <!-- Form for deletion with POST method -->
-        <form method="post" action="{% url 'delete_threads' %}" id="delete-threads-form">
+        <form method="post" action="{% url 'delete_checked' %}" id="delete-threads-form">
             {% csrf_token %}
             <div class="table-responsive">
                 {% render_table table %}

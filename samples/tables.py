@@ -15,11 +15,17 @@ class SampleTable(tables.Table):
         order_by="uid"  # Ensure this matches a field in the model
     )
 
+    delete_checkbox = tables.TemplateColumn(
+        '<input type="checkbox" name="samples_to_delete" value="{{ record.id }}" class="delete-checkbox">',
+        orderable=False,
+        verbose_name='Delete'
+    )
+
     class Meta:
         model = Sample
         attrs = {"class": "table table-striped table-hover table-bordered shadow-sm"}
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("uid", "name", "species", "sample_provider", "project")    
+        fields = ("uid", "name", "species", "sample_provider", "project", "delete_checkbox")    
         order_by = ["-uid"]
 
     def order_uid(self, queryset, is_descending):

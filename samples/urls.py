@@ -6,6 +6,7 @@ urlpatterns = [
     path("add_sample/", views.add_edit_sample, name="add_sample"),
     path("edit_samples/<int:pk>/", views.add_edit_sample, name="edit_samples"),
     path("sample_history/<int:pk>/", views.sample_history, name="sample_history"),
+    path('delete_samples/', views.delete_samples, name='delete_samples'),
     path("species/", views.species, name="species"),
     path("add_species/", views.add_edit_species, name="add_species"),
     path("edit_species/<int:pk>/", views.add_edit_species, name="edit_species"),

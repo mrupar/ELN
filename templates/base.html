@@ -56,6 +56,11 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li>
+                    <a href="{% url 'home' %}" class="nav-link text-white">
+                        {% bs_icon 'house' %} Home
+                    </a>
+                </li>
+                <li>
                     <a href="{% url 'forum' %}" class="nav-link text-white">
                         {% bs_icon 'chat-left-text' %} Forum
                     </a>
@@ -68,16 +73,6 @@
                 <li>
                     <a href="#" class="nav-link text-white">
                         PCR
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link text-white">
-                        Ex1
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link text-white">
-                        Ex2
                     </a>
                 </li>
             </ul>
@@ -141,11 +136,11 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
-        document.getElementById('delete-threads-button').addEventListener('click', function(event) {
-            if (!confirm('Are you sure you want to delete the selected threads?')) {
+        document.getElementById('delete-button').addEventListener('click', function(event) {
+            if (!confirm('Are you sure you want to delete selection?')) {
                 event.preventDefault();
             }
-        });        
+        });       
     </script>
 </body>
 </html>

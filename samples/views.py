@@ -62,6 +62,12 @@ def sample_history(request, pk):
         "table": table,
     })
 
+def delete_samples(request):
+    if request.method == 'POST':
+        samples_to_delete = request.POST.getlist('samples_to_delete')
+        Sample.objects.filter(pk__in=samples_to_delete).delete()
+        messages.success(request, f"Samples deleted successfully!")
+    return redirect('samples')
 #------------------------------------------------------------
 
 # SPECIES

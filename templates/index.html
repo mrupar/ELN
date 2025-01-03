@@ -15,9 +15,9 @@
             <!-- Left Column: Cards for Samples, Projects, Species, Providers, Users -->
             <div class="col-sm-12 col-md-6 col-lg-2">
                 <!-- Samples Card -->
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <a href="{% url 'samples' %}" class="card-title h5 text-dark">Samples</a>
+                <a href="{% url 'samples' %}" class="card mb-3 text-decoration-none" data-toggle="tooltip" data-placement="top" title="View Samples">
+                    <div class="card-body text-dark">
+                        <h5 class="card-title">Samples</h5>
                         <div class="card-text mt-2 p-1 rounded bg-light shadow-sm" style="font-size: 1.1rem; border: 1px solid #ddd;">
                             <div class="row">
                                 <div class="col-4 d-flex justify-content-start"><strong>Total:</strong></div>
@@ -25,12 +25,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
 
                 <!-- Projects Card -->
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <a href="{% url 'projects' %}" class="card-title h5 text-dark">Projects</a>
+                <a href="{% url 'projects' %}" class="card mb-3 text-decoration-none" data-toggle="tooltip" data-placement="top" title="View Projects">
+                    <div class="card-body text-dark">
+                        <h5 class="card-title">Projects</h5>
                         <div class="card-text mt-2 p-1 rounded bg-light shadow-sm" style="font-size: 1.1rem; border: 1px solid #ddd;">
                             <div class="row">
                                 <div class="col-4 d-flex justify-content-start"><strong>Total:</strong></div>
@@ -46,12 +46,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
+                
 
                 <!-- Species Card -->
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <a href="{% url 'species' %}" class="card-title h5 text-dark">Species</a>
+                <a href="{% url 'species' %}" class="card mb-3 text-decoration-none" data-toggle="tooltip" data-placement="top" title="View Species">
+                    <div class="card-body text-dark">
+                        <h5 class="card-title">Species</h5>
                         <div class="card-text mt-2 p-1 rounded bg-light shadow-sm" style="font-size: 1.1rem; border: 1px solid #ddd;">
                             <div class="row">
                                 <div class="col-4 d-flex justify-content-start"><strong>Total:</strong></div>
@@ -59,12 +60,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>                
 
                 <!-- Sample Providers Card -->
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <a href="{% url 'sample_providers' %}" class="card-title h5 text-dark">Sample Providers</a>
+                <a href="{% url 'sample_providers' %}" class="card mb-3 text-decoration-none" data-toggle="tooltip" data-placement="top" title="View Sample Providers">
+                    <div class="card-body text-dark">
+                        <h5 class="card-title">Sample Providers</h5>
                         <div class="card-text mt-2 p-1 rounded bg-light shadow-sm" style="font-size: 1.1rem; border: 1px solid #ddd;">
                             <div class="row">
                                 <div class="col-4 d-flex justify-content-start"><strong>Total:</strong></div>
@@ -72,13 +73,14 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
+                
 
                 <!-- Users Card -->
                  {% if user.is_staff %}
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <a href="{% url 'users' %}" class="card-title h5 text-dark">Users</a>
+                 <a href="{% url 'users' %}" class="card mb-3 text-decoration-none" data-toggle="tooltip" data-placement="top" title="View Users">
+                    <div class="card-body text-dark">
+                        <h5 class="card-title">Users</h5>
                         <div class="card-text mt-2 p-1 rounded bg-light shadow-sm" style="font-size: 1.1rem; border: 1px solid #ddd;">
                             <div class="row">
                                 <div class="col-4 d-flex justify-content-start"><strong>Total:</strong></div>
@@ -86,7 +88,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>                
                 {% endif %}
             </div>
 

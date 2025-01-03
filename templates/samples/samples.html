@@ -36,15 +36,17 @@
             <div class="d-flex">
                 <button type="submit" class="btn btn-primary me-2">Apply Filters</button>
                 <a href="{% url 'add_sample' %}" class="btn btn-primary">Add Sample</a>
+                <button type="submit" class="btn btn-danger mx-2" id="delete-button" form="delete-samples-form">Delete Samples</button>
             </div>
         </form>
     </div>
     
-    <div class="mx-2 my-2">
+    <form method="post" action="{% url 'delete_samples' %}" id="delete-samples-form">
+        {% csrf_token %}
         <div class="table-responsive">
             {% render_table table %}
         </div>
-    </div>
+    </form>
 </div>
 {% endblock %}
 
