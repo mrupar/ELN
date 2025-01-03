@@ -25,7 +25,7 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     {% if user.is_staff %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users' %}">{% bs_icon 'person-add' %} Add User</a>
+                            <a class="nav-link" href="{% url 'add_user' %}">{% bs_icon 'person-add' %} Add User</a>
                         </li>
                     {% endif %}
                     {% if user.is_authenticated %}
@@ -56,8 +56,18 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li>
-                    <a href="/samples" class="nav-link text-white">
-                        {% bs_icon 'trash2' %} Samples
+                    <a href="{% url 'forum' %}" class="nav-link text-white">
+                        {% bs_icon 'chat-left-text' %} Forum
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'samples' %}" class="nav-link text-white">
+                        {% bs_icon 'trash2' %} Isolation
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        PCR
                     </a>
                 </li>
                 <li>
@@ -68,11 +78,6 @@
                 <li>
                     <a href="#" class="nav-link text-white">
                         Ex2
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link text-white">
-                        Ex3
                     </a>
                 </li>
             </ul>
@@ -132,5 +137,15 @@
     </div>
     {% endif %}
     {% bootstrap_javascript %}
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+        document.getElementById('delete-threads-button').addEventListener('click', function(event) {
+            if (!confirm('Are you sure you want to delete the selected threads?')) {
+                event.preventDefault();
+            }
+        });        
+    </script>
 </body>
 </html>

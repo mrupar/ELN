@@ -87,7 +87,7 @@ def posts(request, thread_id):
             post.save()
             messages.success(request, "Post added successfully!")
             return redirect('posts', thread_id=thread.id)
-    return render(request, 'forum/posts.html', {'form': form, 'posts': posts, 'thread_id': thread_id})
+    return render(request, 'forum/posts.html', {'form': form, 'posts': posts, 'title': thread.title})
 
 
     

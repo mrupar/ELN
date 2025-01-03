@@ -1,0 +1,22 @@
+
+.wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.wrap div {
+    flex: 1 1 25%;
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensure the card body takes the full height of the card */
+}
+
+.card-text {
+    flex-grow: 1; /* Make the text area flexible to grow and fill the available space */
+    overflow-y: auto; /* Enable vertical scrolling for overflowing content */
+    max-height: 150px; /* Set a maximum height for the text before it starts scrolling */
+}
