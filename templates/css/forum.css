@@ -20,3 +20,6 @@
     overflow-y: auto; /* Enable vertical scrolling for overflowing content */
     max-height: 150px; /* Set a maximum height for the text before it starts scrolling */
 }
+.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    color: #ffffffaf; /* Set the divider (separator) color to white */
+}

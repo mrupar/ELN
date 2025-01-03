@@ -1,11 +1,32 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 
 {% block title %}{{ title }} - Posts{% endblock %}
 
 {% block header %}
-    <h1>{{ title }}</h1>
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/forum.css' %}">
+<div class="container-fluid text-center">
+    <h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb d-inline-flex justify-content-center">
+                <li class="breadcrumb-item ">
+                    <a href="{% url 'forum' %}" class="text-light">
+                        Forum
+                    </a>
+                </li>
+                <li class="breadcrumb-item ">
+                    <a href="{% url 'threads' category_id %}" class="text-light">
+                        {{ category_name }}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active text-light" aria-current="page">{{ title }}</li>
+            </ol>
+        </nav>
+    </h1>
+</div>
 {% endblock %}
 
 {% block content %}

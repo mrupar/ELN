@@ -1,11 +1,26 @@
 {% extends "base.html" %}
+{% load static %}
 {% load render_table from django_tables2 %}
 {% load crispy_forms_tags %}
     
 {% block title %}{{ name }}{% endblock %}
 
 {% block header %}
-    <h1>{{ name }}</h1>
+<link rel="stylesheet" type="text/css" href="{% static 'css/forum.css' %}">
+<div class="container-fluid text-center">
+    <h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb d-inline-flex justify-content-center">
+                <li class="breadcrumb-item ">
+                    <a href="{% url 'forum' %}" class="text-light">
+                        Forum
+                    </a>
+                </li>
+                <li class="breadcrumb-item active text-light" aria-current="page">{{ name }}</li>
+            </ol>
+        </nav>
+    </h1>
+</div>
 {% endblock %}
 
 {% block content %}
